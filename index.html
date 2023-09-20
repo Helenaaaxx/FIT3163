@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Drug Resistance in Cancer Cell Lines</title>
+  <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+  <!-- Import pure.css -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+    integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+  <!-- CSS file -->
+  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+
+
+</head>
+
+<body>
+
+  <!-- pure grid group -->
+  <div class="pure-g">
+    <div class="pure-u-1-1">
+      <div class = "main_divider">
+        <br>
+        <h1 class = 'big_main_title'> &nbsp; Predicting Drug Resistance in Cancer Cell Lines using Machine Learning Approaches</h1>
+        <p id="c-align">Visualisation by: MDS6</p>
+      </div>
+    </div>
+  </div>
+  <!-- end pure grid group -->
+
+  <!-- pure grid group -->
+  <div class="pure-g">
+    <div class="pure-u-1-1">
+        <div class = "textparagraph">
+            <h2 id="c-align"><span class="maroon_text">Cancer Cell Lines</span> are cultivated from cancer tissues, serve as valuable tools in research, <br>enabling the exploration of cancer biology and the assessment of anti-cancer drug effectiveness</h2>
+            <h2 id="c-align"><span class="maroon_text">Drug Resistance</span> refers to the ability of cancer cells to withstand the effects of one or more anti-cancer drugs, <br>leading to reduced treatment effectiveness.</h2>
+            <h2 id="c-align">Since we have not delved into the development of predictive model, <br>this purpose of this visualisation is to present and communicate the outcomes of data analysis <br>of the datasets that we have collected.</h2>
+            <h2 id="c-align">The two datasets that we have collected are the <span class="red_big_text">"GDSC2-dataset"</span> that contains drug response of different cancer cell lines to different drugs <br>and the <span class="red_big_text">"RMA normalised gene expression dataset"</span> that contains gene expression levels of different cell lines.</h2>
+          </div>
+    </div>
+  </div>
+  <!-- end pure grid group -->
+
+  <!-- pure grid group -->
+  <div class="pure-g">
+    <div class="pure-u-1-1">
+      <div class = "sub_divider">
+        <br>
+        <h1 class = 'type_main_text'>Genomic of Drug Sensitivity in Cancer (GDSC) and RMA Gene Expressions Datasets Analysis</h1>
+      </div>
+    </div>
+  </div>
+  <!-- end pure grid group -->
+
+  <!-- pure grid group -->
+  <div class="pure-g">
+    <div class="pure-u-1-4" style="text-align: center;">
+        <img src="image/genes.png" width="container" height="230"/>
+    </div>
+    <div class="pure-u-1-4" style="text-align: center;">
+        <img src="image/cell.png" width="container" height="250"/>
+    </div>
+    <div class="pure-u-1-4" style="text-align: center;">
+        <img src="image/cancer.png" width="container" height="250"/>
+    </div>
+    <div class="pure-u-1-4" style="text-align: center;">
+        <br>
+        <img src="image/drugs.png" width="container" height="210"/>
+    </div>
+  </div>
+  <!-- end pure grid group -->
+  <!-- pure grid group -->
+  <div class="pure-g">
+    <div class="pure-u-1-4" style="text-align: center;">
+        <h1 id="c-align"><span class="magenta_extra_big_text">17418 Genes</span></h4>
+    </div>
+    <div class="pure-u-1-4" style="text-align: center;">
+        <h1 id="c-align"><span class="purple_extra_big_text">741 Cancer Cell Lines</span></h4>
+    </div>
+    <div class="pure-u-1-4" style="text-align: center;">
+        <h1 id="c-align"><span class="red_extra_big_text">30+ Cancer Types</span></h4>
+    </div>
+    <div class="pure-u-1-4" style="text-align: center;">
+        <h1 id="c-align"><span class="blue_extra_big_text">295 Drugs</span></h4>
+    </div>
+  </div>
+  <!-- end pure grid group -->
+
+  <!-- pure grid group -->
+  <div class="pure-g">
+    <div class="pure-u-1-1">
+        <div class = "textparagraph">
+            <h2 id="c-align"><span class="magenta_extra_big_text">LN_IC50</span> is the logarithm of IC50, representing sensitivity of drugs on cancer cell lines. The <span class="green_big_text">lower</span> the LN_IC50, the <span class="green_big_text">higher</span> the sensitivity. </h2>
+            <h2 id="c-align"><span class="magenta_extra_big_text">AUC</span> is area under curve of dose-response, representing resistance of drugs on cancer cell lines. The <span class="red_big_text">higher</span> the AUC value, the <span class="red_big_text">higher</span> the resistance. </h2>
+        </div>
+    </div>
+  </div>
+  <!-- end pure grid group -->
+
+    <!-- pure grid group -->
+<div class="pure-g">
+  <div class="pure-u-1-2">
+      <div class="description description-left">
+        <div class="divider_left">
+            <br>
+            <h2>Normal Distribution of LN_IC50</h2>
+            <br>
+        </div>
+      </div>
+  </div>
+  <div class="pure-u-1-2">
+      <div class="description description-left">
+        <div class="divider_right">
+            <br>
+            <h2>Normal Distribution of AUC</h2>
+            <br>
+        </div>
+      </div>
+  </div>
+</div>
+<!-- end pure grid group -->
+
+<!-- pure grid group -->
+<div class="pure-g">
+  <div class="pure-u-1-2">
+      <div class = "graph_divider_left">
+        <img src="image/norm_IC50.png" width="container" height=465/>
+      </div>
+  </div>
+  <div class="pure-u-1-2">
+    <div class = "graph_divider_right">
+      <img src="image/norm_auc.png" width="container" height=465/>
+    </div>
+  </div>
+</div>
+<!-- end pure grid group -->
+
+<!-- pure grid group -->
+<!-- <div class="pure-g">
+  <div class="pure-u-1-2">
+        <div class = "graph_divider_left">
+            <div id="norm_dist_IC50" class="vis-container"></div>
+        </div>
+  </div>
+  <div class="pure-u-1-2">
+    <div class = "graph_divider_right">
+        <div id="norm_dist_auc" class="vis-container"></div>
+    </div>
+  </div>
+</div> -->
+<!-- end pure grid group -->
+
+<!-- pure grid group -->
+<div class="pure-g">
+  <div class="pure-u-1-2">
+        <div class="description description-left">
+            <h5 id="c-align"> <span class="blue_big_text">Mean = 2.83378</span> <span class="gray_big_text"> &nbsp; &nbsp; &nbsp; &nbsp; Median = 3.255135</span><span class="red_big_text">&nbsp; &nbsp; &nbsp; &nbsp;Mode = 4.421774</span> <br> <br><span class="blue_big_text">Mean</span> > <span class="gray_big_text"> Median </span> > <span class="red_big_text">Mode</span> <br> <br>It shows a negative skewness, indicating on average, there are more drugs having <span class="red_big_text">higher LN_IC50 (lower sensitivity, higher resistance)</span> on the cancer cell lines.</h5>
+        </div>
+    </div>
+    <div class="pure-u-1-2">
+        <div class = "description description-left">
+          <h5 id="c-align"> <span class="blue_big_text">Mean = 0.882691</span> <span class="gray_big_text"> &nbsp; &nbsp; &nbsp; &nbsp; Median = 0.944315</span><span class="red_big_text">&nbsp; &nbsp; &nbsp; &nbsp;Mode = 0.995496</span> <br> <br><span class="blue_big_text">Mean</span> > <span class="gray_big_text"> Median </span> > <span class="red_big_text">Mode</span> <br> <br>It shows a negative skewness, indicating on average, there are more drugs having <span class="red_big_text">higher AUC (higher resistance, lower sensitivity)</span> on the cancer cell lines.</h5>
+        </div>
+    </div>
+</div>
+<!-- end pure grid group -->
+
+<!-- pure grid group -->
+<div class="pure-g">
+  <div class="pure-u-1-1">
+      <div class = "textparagraph">
+          <h2 id="c-align">The result of both normal distribution graph aligns with our hypothesis such that: <br><br> The <span class="green_extra_big_text">lower</span> the LN_IC50, the <span class="green_extra_big_text">higher</span> the sensitivity, the <span class="green_extra_big_text">lower</span> the resistance, the <span class="green_extra_big_text">lower</span> the AUC <br> The <span class="red_extra_big_text">higher</span> the AUC, the <span class="red_extra_big_text">higher</span> the resistance, the <span class="red_extra_big_text">lower</span> the sensitivity, the <span class="red_extra_big_text">higher</span> the LN_IC50</h2>
+      </div>
+  </div>
+</div>
+<!-- end pure grid group -->
+
+  <!-- pure grid group -->
+  <div class="pure-g">
+    <div class="pure-u-1-1">
+      <div class = "sub_divider">
+        <br>
+        <h1 class = 'type_main_text'>Cancer Cell Lines and Drugs Relationship Analysis</h1>
+      </div>
+    </div>
+  </div>
+  <!-- end pure grid group -->
+
+  <!-- pure grid group -->
+  <div class="pure-g">
+    <div class="pure-u-1-1">
+        <div class = "textparagraph">
+            <h2 id="c-align">
+                Due to large amount of drugs and cancer cell lines in GDSC dataset, we therefore choose 10 types of cell lines and 10 types of drugs from the GDSC dataset to illustrate and analyse their relationship.
+            </h2>
+        </div>
+    </div>
+  </div>
+  <!-- end pure grid group -->
+
+  <!-- pure grid group -->
+<div class="pure-g">
+    <div class="pure-u-1-2">
+        <div class="description description-left">
+          <div class="divider_left">
+              <br>
+              <h2> LN_IC50 Corresponding to the 10 Types of Selected Drugs</h2>
+              <br>
+          </div>
+        </div>
+    </div>
+    <div class="pure-u-1-2">
+        <div class="description description-left">
+          <div class="divider_right">
+              <br>
+              <h2> Area Under Curve (AUC) Corresponding to the 10 Types of Selected Drugs</h2>
+              <br>
+          </div>
+        </div>
+    </div>
+</div>
+<!-- end pure grid group -->
+  
+<!-- pure grid group -->
+<div class="pure-g">
+    <div class="pure-u-1-2">
+          <div class = "graph_divider_left">
+              <div id="donutchart" class="vis-container"></div>
+          </div>
+    </div>
+    <div class="pure-u-1-2">
+      <div class = "graph_divider_right">
+          <div id="barchart" class="vis-container"></div>
+      </div>
+    </div>
+  </div>
+<!-- end pure grid group -->
+
+<!-- pure grid group -->
+<div class="pure-g">
+    <div class="pure-u-1-2">
+          <div class="description description-left">
+            <h5 id="c-align"> The donut chart above shows the LN_IC50 (sensitivity) of the 10 types of drugs on the 10 types of cancer cell lines. <br><br> From the visualisation, we can say that the drug <span class="gray_big_text">"AZD7762"</span> has an overall <span class="green_big_text">lower LN_IC50</span> on the 10 cancer cell lines, indicating <span class="green_big_text">higher sensitivity</span>, therefore <span class="green_big_text">lower drug_resistance</span>.</h5>
+          </div>
+      </div>
+      <div class="pure-u-1-2">
+          <div class = "description description-left">
+              <h5 id="c-align"> The bar chart above shows the AUC (resistance) of the 10 types of drugs on the 10 types of cancer cell lines. <br><br> From the visualisation, we can say that the drug <span class="gray_big_text">"AZD7762"</span> has an overall <span class="green_big_text">lower resistance</span> on the 10 cancer cell lines, indicating better drug performance, which <span class="green_big_text">supports</span> the result from donut chart.</h5>
+          </div>
+      </div>
+  </div>
+<!-- end pure grid group -->
+
+<!-- pure grid group -->
+<div class="pure-g">
+  <div class="pure-u-1">
+    <div class = "divider">
+      <div class="description description-left">
+        <br>
+        <h2>Analysis of Correlation between AUC, LN_IC50, RMSE and Z_SCORE for the selected 10 Types of Drugs</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end pure grid group -->
+
+<!-- pure grid group -->
+<div class="pure-g">
+  <div class="pure-u-2-3">
+    <div id="parallel_coordinate" class="vis-container"></div>
+  </div>
+  <div class="pure-u-1-3">
+      <div class="description description-left">
+        <h5 id="l-align">&nbsp; &nbsp; By observing AUC and LN_IC50, in overall, <br>&nbsp; &nbsp; <span class="red_big_text">smaller</span> AUC maps to <span class="red_big_text">smaller</span> value of LN_IC50, <br>&nbsp; &nbsp; whereas <span class="green_big_text">smaller</span> AUC maps to <span class="green_big_text">smaller</span> value of LN_IC50</h5>
+        <h4 id="l-align"> &nbsp; &nbsp; <span class="black_big_text">There is no obvious correlation between LN_IC50, RMSE <br>&nbsp; &nbsp;and Z_SCORE. We can therefore conclude that RMSE <br>&nbsp; &nbsp;and Z_SCORE will not be taken into account for the <br>&nbsp; &nbsp;development of our drug resistance prediction model.</span></h4>
+        <h5 id="l-align"> &nbsp; &nbsp; In overall, drugs with <span class="green_big_text">lower</span> value of AUC has <span><span class="green_big_text">lower</span>  <br>&nbsp; &nbsp; value  of LN_IC50 (vice versa).</h5>
+        <h5 id="l-align"> &nbsp; &nbsp; This indicates that drugs with <span class="green_big_text">lower</span> resistance will have  <br>&nbsp; &nbsp; <span class="green_big_text">higher</span> sensitivity.</h5>
+      </div>
+    </div>
+</div>
+<!-- end pure grid group -->
+
+  <!-- pure grid group -->
+  <div class="pure-g">
+    <div class="pure-u-1">
+      <div class = "divider">
+        <div class="description description-left">
+          <br>
+          <h2>Analysis of Relationship between LN_IC50 and AUC for the selected 10 Types of Drugs</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end pure grid group -->
+
+  <!-- pure grid group -->
+  <div class="pure-g">
+    <div class="pure-u-2-3">
+      <div id="scatterplot" class="vis-container"></div>
+    </div>
+    <div class="pure-u-1-3">
+        <div class="description description-left">
+          <h5 id="l-align">&nbsp; &nbsp; From the scatterplot, it shows a <span class="green_big_text">POSITIVE</span> relationship <br>&nbsp; &nbsp; between LN_IC50 and AUC.</h5>
+          <h5 id="l-align">&nbsp; &nbsp; In overall, for each type of drugs, the <span class="green_big_text">smaller</span> the value <br>&nbsp; &nbsp; of LN_IC50, the <span class="green_big_text">smaller</span> the value of AUC.</h5>
+          <h5 id="l-align">&nbsp; &nbsp; This again supports our hypothesis such that <span class="green_big_text">lower</span> <br>&nbsp; &nbsp; LN_IC50, <span class="green_big_text">higher</span> sensitivity, <span class="green_big_text">lower</span> resistance, therefore <br>&nbsp; &nbsp; <span class="green_big_text">smaller</span> value of AUC.</h5>
+        </div>
+      </div>
+  </div>
+  <!-- end pure grid group -->
+
+  <!-- pure grid group -->
+  <div class="pure-g">
+    <div class="pure-u-1-1">
+      <div class = "main_bottom">
+        <div class = "main_random">
+          <h1> random text </h1>
+          <p>&nbsp;&nbsp;&nbsp;Data originated from Wellcome Sanger Institute</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end pure grid group -->
+
+
+  <script type="text/javascript">
+
+    var specVis1 = "js/scatterplot_IC50_drugs_relationship.json";
+    vegaEmbed('#scatterplot', specVis1, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var specVis2 = "js/donutchart_drugs_IC50.json";
+    vegaEmbed('#donutchart', specVis2, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var specVis3 = "js/barchart_drugs_AUC.json";
+    vegaEmbed('#barchart', specVis3, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var specVis4 = "js/parallel_coordinate_plot.json";
+    vegaEmbed('#parallel_coordinate', specVis4, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var specVis5 = "js/norm_dist_IC50_no_text.json";
+    vegaEmbed('#norm_dist_IC50', specVis5, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var specVis6 = "js/norm_dist_auc.json";
+    vegaEmbed('#norm_dist_auc', specVis6, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+  </script>
+</body>
+
+</html>
