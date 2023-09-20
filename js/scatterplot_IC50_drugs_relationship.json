@@ -1,0 +1,101 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "height": 500,
+  "width": "container",
+  "background": "#FAF8F5",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Helenaaaxx/FIT3163/main/dataset/cancer_drug_IC50_auc.csv"
+  },
+  "mark": {
+    "type": "circle",
+    "stroke": "black",
+    "strokeWidth": 0.5,
+    "size": 200,
+    "cursor": "pointer"
+  },
+  "encoding": {
+    "x": {
+      "field": "LN_IC50", 
+      "type": "quantitative",
+      "axis": {
+        "titleFontSize": 18,
+        "labelFontSize": 14
+      }
+    },
+    "y": {
+      "field": "AUC",
+      "type": "quantitative",
+      "scale": {"domain": [0.4, 1]},
+      "axis": {
+        "titleFontSize": 18,
+        "labelFontSize": 11.5
+      }
+    },
+    "color": {
+      "field": "DRUG_NAME",
+      "type": "nominal",
+      "legend": {
+        "orient": "right",
+        "labelLimit": 300,
+        "titleFontSize": 18,
+        "labelFontSize": 14,
+        "title": "Drugs Filter: "
+      }
+    },
+    "opacity": {
+      "condition": {"param": "legend_selection", "value": 1},
+      "value": 0.2
+    },
+    "tooltip": [
+      {"field": "CELL_LINE_NAME", "type": "nominal"},
+      {"field": "DRUG_NAME", "type": "nominal"},
+      {"field": "LN_IC50", "type": "quantitative"},
+      {"field": "AUC", "type": "quantitative"}
+    ]
+  },
+  "params": [
+    {
+      "name": "Cancer",
+      "value": "null",
+      "bind": {
+        "input": "select",
+        "options": [
+          "null",
+          "A673",
+          "COLO-829",
+          "ES5",
+          "ES7",
+          "EW-11",
+          "PFSK-1",
+          "RT4",
+          "SK-ES-1",
+          "SW780",
+          "TCCSUP"
+        ],
+        "labels": [
+          "All",
+          "A673",
+          "COLO-829",
+          "ES5",
+          "ES7",
+          "EW-11",
+          "PFSK-1",
+          "RT4",
+          "SK-ES-1",
+          "SW780",
+          "TCCSUP"
+        ],
+        "name": "Cancer Cell Lines Selection: "
+      }
+    },
+    {
+      "name": "legend_selection",
+      "select": {"type": "point", "fields": ["DRUG_NAME"]},
+      "bind": "legend"
+    }
+  ],
+  "transform": [
+    {"filter": "Cancer=='null'?Cancer:datum.CELL_LINE_NAME == Cancer"}
+  ],
+  "config": {}
+}

@@ -1,0 +1,84 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/Helenaaaxx/FIT3163/main/dataset/norm_dist_auc.csv"
+    },
+    "width": "container",
+    "height": 400,
+    "background": "#FAF8F5",
+    "transform": [
+      {"Norm_Dist": "AUC", "bandwidth": 0.3},
+      {"calculate": "0.9443145", "as": "median_AUC"},
+      {"calculate": "0.882690732", "as": "mean_AUC"},
+      {"calculate": "0.995496", "as": "mode_AUC"}
+    ],
+    "layer": [
+      {
+        "mark": {
+          "type": "area",
+          "cursor": "pointer",
+          "color": "#d2760d",
+          "opacity": 0.8
+        },
+        "encoding": {
+          "x": {
+            "field": "AUC",
+            "title": "AUC",
+            "type": "quantitative",
+            "axis": {"titleFontSize": 18, "labelFontSize": 13}
+          },
+          "y": {
+            "field": "Probability",
+            "title": "Probability",
+            "type": "quantitative",
+            "scale": {"domain": [0, 3.5]},
+            "axis": {"titleFontSize": 18, "labelFontSize": 13}
+          },
+          "tooltip": [
+            {"field": "AUC", "type": "quantitative"},
+            {"field": "Probability", "type": "quantitative"}
+          ]
+        }
+      },
+      {
+        "mark": {
+          "type": "rule",
+          "color": "gray",  
+          "strokeDash": [3, 3]  
+        },
+        "encoding": {
+          "x": {
+            "field": "median_AUC", 
+            "type": "quantitative"
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "rule",
+          "color": "#03468F",  
+          "strokeDash": [3, 3]  
+        },
+        "encoding": {
+          "x": {
+            "field": "mean_AUC",  
+            "type": "quantitative"
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "rule",
+          "color": "#BA1111",  
+          "strokeDash": [3, 3]  
+        },
+        "encoding": {
+          "x": {
+            "field": "mode_AUC", 
+            "type": "quantitative"
+          }
+        }
+      }
+    ],
+    "config": {}
+}

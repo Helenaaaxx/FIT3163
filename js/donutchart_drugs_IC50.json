@@ -1,0 +1,94 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "height": 500,
+  "width": "container",
+  "background": "#FAF8F5",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Helenaaaxx/FIT3163/main/dataset/final_cancer_drug_IC50.csv"
+  },
+  "mark": {
+    "type": "arc",
+    "innerRadius": 150,
+    "stroke": "white",
+    "cursor": "pointer"
+  },
+  "encoding": {
+    "theta": {"field": "LN_IC50", "type": "quantitative", "stack": true},
+    "color": {
+      "field": "DRUG_NAME",
+      "type": "nominal",
+      "legend": {
+        "orient": "right",
+        "labelLimit": 300,
+        "titleFontSize": 18,
+        "labelFontSize": 14,
+        "title": "Drugs Filter:"
+      },
+      "scale": {
+        "domain": [
+          "Camptothecin",
+          "Docetaxel",
+          "Methotrexate",
+          "Gefitinib",
+          "Navitoclax",
+          "Vorinostat",
+          "Nilotinib",
+          "Olaparib",
+          "AZD7762",
+          "GW441756"
+        ],
+        "range": [
+          "#F2C381",
+          "#E79CB5",
+          "#7E74A4",
+          "#B86986",
+          "#7A7270",
+          "#D7B7D3",
+          "#97B9B6",
+          "#C5C1EC",
+          "#C4BFBE",
+          "#B1968A"
+        ]
+      }
+    },
+    "opacity": {
+      "condition": {"param": "legend_selection", "value": 1},
+      "value": 0.2
+    },
+    "tooltip": [
+      {"field": "CELL_LINE_NAME", "type": "nominal"},
+      {"field": "DRUG_NAME", "type": "nominal"},
+      {"field": "LN_IC50", "type": "quantitative"}
+    ],
+    "order": {"field": "LN_IC50", "type": "quantitative", "sort": "descending"}
+  },
+  "params": [
+    {
+      "name": "Cancer",
+      "value": "A673",
+      "bind": {
+        "input": "select",
+        "options": [
+          "A673",
+          "COLO-829",
+          "ES5",
+          "ES7",
+          "EW-11",
+          "PFSK-1",
+          "RT4",
+          "SK-ES-1",
+          "SW780",
+          "TCCSUP"
+        ],
+        "name": "Cancer Cell Lines Selection: "
+      }
+    },
+    {
+      "name": "legend_selection",
+      "select": {"type": "point", "fields": ["DRUG_NAME"]},
+      "bind": "legend"
+    }
+  ],
+  "transform": [{"filter": "datum.CELL_LINE_NAME == Cancer"}],
+  "config": {}
+}

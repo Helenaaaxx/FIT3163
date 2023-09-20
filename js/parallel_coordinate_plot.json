@@ -1,0 +1,129 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "height": 500,
+  "width": "container",
+  "background": "#FAF8F5",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Helenaaaxx/FIT3163/main/dataset/GDSC2_Visualisation.csv"
+  },
+  "layer": [
+    {
+      "mark": {"type": "rule", "color": "#ccc", "cursor": "pointer"},
+      "encoding": {"detail": {"aggregate": "count"}, "x": {"field": "key"}}
+    },
+    {
+      "mark": {"type":"line", "cursor":"pointer"},
+      "encoding": {
+        "color": {
+          "type": "nominal",
+          "field": "DRUG_NAME",
+          "legend": {
+            "orient": "right",
+            "labelLimit": 300,
+            "titleFontSize": 18,
+            "labelFontSize": 14,
+            "title": "Drugs Name:"
+          }
+        },
+        "detail": {"type": "nominal", "field": "index"},
+        "opacity": {"value": 0.4},
+        "x": {"type": "nominal", "field": "key", "axis": {"labelFontSize": 13}},
+        "y": {"type": "quantitative", "field": "norm_val", "axis": null},
+        "tooltip": [
+          {"type": "quantitative", "field": "LN_IC50"},
+          {"type": "quantitative", "field": "AUC"},
+          {"type": "quantitative", "field": "RMSE"},
+          {"type": "quantitative", "field": "Z_SCORE"}
+        ]
+      }
+    },
+    {
+      "encoding": {"x": {"type": "nominal", "field": "key"}, "y": {"value": 0}},
+      "layer": [
+        {
+          "mark": {"type": "text", "style": "label"},
+          "encoding": {"text": {"aggregate": "max", "field": "max"}}
+        },
+        {"mark": {"type": "tick", "style": "tick", "size": 8, "color": "#ccc"}}
+      ]
+    },
+    {
+      "encoding": {
+        "x": {"type": "nominal", "field": "key"},
+        "y": {"value": 300}
+      },
+      "layer": [
+        {
+          "mark": {"type": "text", "style": "label"},
+          "encoding": {"text": {"aggregate": "min", "field": "min"}}
+        },
+        {"mark": {"type": "tick", "style": "tick", "size": 8, "color": "#ccc"}}
+      ]
+    }
+  ],
+  "params": [
+    {
+      "name": "Cancer",
+      "value": "null",
+      "bind": {
+        "input": "select",
+        "options": [
+          "null",
+          "A673",
+          "COLO-829",
+          "ES5",
+          "ES7",
+          "EW-11",
+          "PFSK-1",
+          "RT4",
+          "SK-ES-1",
+          "SW780",
+          "TCCSUP"
+        ],
+        "labels": [
+          "All",
+          "A673",
+          "COLO-829",
+          "ES5",
+          "ES7",
+          "EW-11",
+          "PFSK-1",
+          "RT4",
+          "SK-ES-1",
+          "SW780",
+          "TCCSUP"
+        ],
+        "name": "Cancer Cell Lines Selection: "
+      }
+    }
+  ],
+  "transform": [
+    {"filter": "Cancer=='null'?Cancer:datum.CELL_LINE_NAME == Cancer"},
+    {"window": [{"op": "count", "as": "index"}]},
+    {"fold": ["LN_IC50", "AUC", "RMSE", "Z_SCORE"]},
+    {
+      "joinaggregate": [
+        {"op": "min", "field": "value", "as": "min"},
+        {"op": "max", "field": "value", "as": "max"}
+      ],
+      "groupby": ["key"]
+    },
+    {
+      "calculate": "(datum.value - datum.min) / (datum.max-datum.min)",
+      "as": "norm_val"
+    }
+  ],
+  "config": {
+    "axisX": {
+      "domain": false,
+      "labelAngle": 0,
+      "tickColor": "#ccc",
+      "title": null
+    },
+    "view": {"stroke": null},
+    "style": {
+      "label": {"baseline": "middle", "align": "right", "dx": -5},
+      "tick": {"orient": "horizontal"}
+    }
+  }
+}

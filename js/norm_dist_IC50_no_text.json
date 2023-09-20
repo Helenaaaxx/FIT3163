@@ -1,0 +1,84 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/Helenaaaxx/FIT3163/main/dataset/norm_dist_IC50.csv"
+    },
+    "width": "container",
+    "height": 400,
+    "background": "#FAF8F5",
+    "transform": [
+      {"Norm_Dist": "LN_IC50", "bandwidth": 0.3},
+      {"calculate": "3.255135", "as": "median_LN_IC50"},
+      {"calculate": "2.83378", "as": "mean_LN_IC50"},
+      {"calculate": "4.421774", "as": "mode_LN_IC50"}
+    ],
+    "layer": [
+      {
+        "mark": {
+          "type": "area",
+          "cursor": "pointer",
+          "color": "#bb1e6a",
+          "opacity": 0.7
+        },
+        "encoding": {
+          "x": {
+            "field": "LN_IC50",
+            "title": "LN_IC50",
+            "type": "quantitative",
+            "axis": {"titleFontSize": 18, "labelFontSize": 13}
+          },
+          "y": {
+            "field": "Norm_Dist",
+            "title": "Probability",
+            "type": "quantitative",
+            "scale": {"domain": [0, 0.2]},
+            "axis": {"titleFontSize": 18, "labelFontSize": 13}
+          },
+          "tooltip": [
+            {"field": "LN_IC50", "type": "quantitative"},
+            {"field": "Norm_Dist", "title": "Probability", "type": "quantitative"}
+          ]
+        }
+      },
+      {
+        "mark": {
+          "type": "rule",
+          "color": "gray",  
+          "strokeDash": [3, 3]  
+        },
+        "encoding": {
+          "x": {
+            "field": "median_LN_IC50", 
+            "type": "quantitative"
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "rule",
+          "color": "#03468F",  
+          "strokeDash": [3, 3]  
+        },
+        "encoding": {
+          "x": {
+            "field": "mean_LN_IC50",  
+            "type": "quantitative"
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "rule",
+          "color": "#BA1111",  
+          "strokeDash": [3, 3]  
+        },
+        "encoding": {
+          "x": {
+            "field": "mode_LN_IC50", 
+            "type": "quantitative"
+          }
+        }
+      }
+    ],
+    "config": {}
+}
